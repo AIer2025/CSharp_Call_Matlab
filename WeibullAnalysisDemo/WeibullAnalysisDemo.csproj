@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 添加 MATLAB 生成的 DLL 引用 -->
+    <!-- 请根据实际路径修改 -->
+    <Reference Include="WeibullAnalysis">
+      <HintPath>C:\Users\86138\Desktop\深圳测试服务器\CSharp_Call_Matlab\output\WeibullAnalysisNative.dll</HintPath>
+    </Reference>
+    
+    <!-- MATLAB Runtime 的 MWArray.dll -->
+    <!-- 默认安装路径，请根据实际安装位置修改 -->
+    <Reference Include="MWArray">
+      <HintPath>C:\Program Files\MATLAB\MATLAB Runtime\R2025b\toolbox\dotnetbuilder\bin\win64\v4.0\MWArray.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
