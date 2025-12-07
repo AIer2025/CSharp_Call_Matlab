@@ -1,20 +1,19 @@
 /*
- * WeibullAnalysisDemo - C# 调用 MATLAB Weibull 分析 DLL 示例
+ * WeibullAnalysisDemo - C# 调用 MATLAB Weibull 分析 DLL
+ * 版本: 1.1.0
+ * 日期: 2025-12-07
  * 
- * 使用前准备:
- * 1. 安装 MATLAB Runtime R2025b
- * 2. 将 WeibullAnalysis.dll 放入 libs 文件夹
- * 3. 配置 MWArray.dll 引用路径
- * 
- * .NET 8.0 项目
+ * MATLAB R2025b Native API 返回类型说明:
+ * - 数值: double[,] (二维数组)
+ * - 字符串: char[,] 或 string[]
+ * - 逻辑值: bool[,] (二维数组)
  */
 
 using System;
-using MathWorks.MATLAB.NET.Arrays;
-using MathWorks.MATLAB.NET.Utility;
-using WeibullAnalysisNative; // MATLAB 生成的命名空间
+using WeibullAnalysisNative;  // 使用 Native 命名空间
 
 namespace WeibullAnalysisDemo
+
 {
     class Program
     {
@@ -28,35 +27,31 @@ namespace WeibullAnalysisDemo
 
             try
             {
-                // 创建分析器实例
                 using var analyzer = new WeibullAnalyzer();
 
-                // 示例1: 按模组ID分析
+                // 示例1: 按模组ID分析 (需要数据库连接)
                 Console.WriteLine("=== 示例1: 按模组ID分析 ===");
                 AnalyzeByModuleID(analyzer, 1);
-
                 Console.WriteLine();
 
-                // 示例2: 按模组代码分析
+                // 示例2: 按模组代码分析 (需要数据库连接)
                 Console.WriteLine("=== 示例2: 按模组代码分析 ===");
                 AnalyzeByModuleCode(analyzer, "MOD001");
-
                 Console.WriteLine();
 
-                // 示例3: 直接使用数据数组分析
+                // 示例3: 直接数据分析 (不需要数据库)
                 Console.WriteLine("=== 示例3: 直接数据分析 ===");
                 AnalyzeFromData(analyzer);
-
                 Console.WriteLine();
 
-                // 示例4: 批量分析所有模组
+                // 示例4: 批量分析 (需要数据库连接)
                 Console.WriteLine("=== 示例4: 批量分析 ===");
                 AnalyzeAll(analyzer);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"错误: {ex.Message}");
-                Console.WriteLine($"详情: {ex.StackTrace}");
+                Console.WriteLine($"堆栈: {ex.StackTrace}");
             }
 
             Console.WriteLine();
@@ -65,65 +60,52 @@ namespace WeibullAnalysisDemo
         }
 
         /// <summary>
-        /// 按模组ID进行分析
+        /// 按模组ID分析
         /// </summary>
         static void AnalyzeByModuleID(WeibullAnalyzer analyzer, int moduleID)
         {
             Console.WriteLine($"分析模组ID: {moduleID}");
-
-            // 调用 MATLAB 函数
-            MWStructArray result = (MWStructArray)analyzer.WeibullAnalysisByModuleID(
-                new MWNumericArray(moduleID)
-            );
-
-            // 解析结果
-            PrintWeibullResult(result);
+            
+            // 重要：参数必须转换为 (object)，否则会匹配到错误的重载
+            dynamic result = analyzer.WeibullAnalysisByModuleID((object)moduleID);
+            PrintResult(result);
         }
 
         /// <summary>
-        /// 按模组代码进行分析
+        /// 按模组代码分析
         /// </summary>
         static void AnalyzeByModuleCode(WeibullAnalyzer analyzer, string moduleCode)
         {
             Console.WriteLine($"分析模组代码: {moduleCode}");
-
-            MWStructArray result = (MWStructArray)analyzer.WeibullAnalysisByModuleCode(
-                new MWCharArray(moduleCode)
-            );
-
-            PrintWeibullResult(result);
+            dynamic result = analyzer.WeibullAnalysisByModuleCode((object)moduleCode);
+            PrintResult(result);
         }
 
         /// <summary>
-        /// 直接使用数据数组分析
+        /// 直接使用数据分析 (不需要数据库连接)
         /// </summary>
         static void AnalyzeFromData(WeibullAnalyzer analyzer)
         {
             // 准备测试数据
             double[] failureTimes = { 100, 200, 300, 400, 500, 600, 750, 900, 1100, 1500 };
-            double[] censoringTypes = { 0, 0, 0, 0, 0, 0, 1, 0, 0, 1 };  // 0=完全, 1=右删失
+            double[] censoringTypes = { 0, 0, 0, 0, 0, 0, 1, 0, 0, 1 };  // 0=完全失效, 1=右删失
             double[] quantities = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
             double[] lastInspTimes = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
             Console.WriteLine($"分析 {failureTimes.Length} 个数据点");
             Console.WriteLine($"  失效时间: [{string.Join(", ", failureTimes)}]");
 
-            // 转换为 MATLAB 数组
-            MWNumericArray mwTimes = new MWNumericArray(failureTimes);
-            MWNumericArray mwCensoring = new MWNumericArray(censoringTypes);
-            MWNumericArray mwQuantities = new MWNumericArray(quantities);
-            MWNumericArray mwLastInsp = new MWNumericArray(lastInspTimes);
-
-            MWStructArray result = (MWStructArray)analyzer.WeibullAnalysisFromData(
-                mwTimes,
-                mwCensoring,
-                mwQuantities,
-                mwLastInsp,
-                new MWCharArray("TestModule"),
-                new MWCharArray("测试模组")
+            // 所有参数必须转换为 (object)
+            dynamic result = analyzer.WeibullAnalysisFromData(
+                (object)failureTimes,
+                (object)censoringTypes,
+                (object)quantities,
+                (object)lastInspTimes,
+                (object)"TestModule",
+                (object)"测试模组"
             );
 
-            PrintWeibullResult(result);
+            PrintResult(result);
         }
 
         /// <summary>
@@ -132,45 +114,46 @@ namespace WeibullAnalysisDemo
         static void AnalyzeAll(WeibullAnalyzer analyzer)
         {
             Console.WriteLine("分析所有活跃模组...");
+            dynamic results = analyzer.WeibullAnalysisAll();
 
-            MWStructArray results = (MWStructArray)analyzer.WeibullAnalysisAll();
-
-            if (results == null || results.NumberOfElements == 0)
+            if (results == null)
             {
-                Console.WriteLine("  没有找到数据或分析失败");
+                Console.WriteLine("  没有数据");
                 return;
             }
 
-            int count = results.NumberOfElements;
-            Console.WriteLine($"  共 {count} 个模组的分析结果:");
+            int count = GetElementCount(results);
+            Console.WriteLine($"  共 {count} 个模组");
             Console.WriteLine();
 
-            // 打印表头
             Console.WriteLine($"{"编码",-12} {"名称",-15} {"Beta",8} {"Eta",10} {"R²",8} {"MTTF",10}");
             Console.WriteLine(new string('-', 70));
 
-            // 遍历结果
             for (int i = 1; i <= count; i++)
             {
-                bool success = GetBoolField(results, "success", i);
+                bool success = GetBool(results, "success", i);
                 if (success)
                 {
-                    string code = GetStringField(results, "moduleCode", i);
-                    string name = GetStringField(results, "moduleName", i);
-                    double beta = GetDoubleField(results, "beta", i);
-                    double eta = GetDoubleField(results, "eta", i);
-                    double r2 = GetDoubleField(results, "r2", i);
-                    double mttf = GetDoubleField(results, "mttf", i);
-
+                    string code = GetString(results, "moduleCode", i);
+                    string name = GetString(results, "moduleName", i);
+                    double beta = GetDouble(results, "beta", i);
+                    double eta = GetDouble(results, "eta", i);
+                    double r2 = GetDouble(results, "r2", i);
+                    double mttf = GetDouble(results, "mttf", i);
                     Console.WriteLine($"{code,-12} {name,-15} {beta,8:F3} {eta,10:F1} {r2,8:F3} {mttf,10:F1}");
+                }
+                else
+                {
+                    string msg = GetString(results, "message", i);
+                    Console.WriteLine($"  模组{i} 失败: {msg}");
                 }
             }
         }
 
         /// <summary>
-        /// 打印 Weibull 分析结果
+        /// 打印分析结果
         /// </summary>
-        static void PrintWeibullResult(MWStructArray result)
+        static void PrintResult(dynamic result)
         {
             if (result == null)
             {
@@ -178,8 +161,8 @@ namespace WeibullAnalysisDemo
                 return;
             }
 
-            bool success = GetBoolField(result, "success");
-            string message = GetStringField(result, "message");
+            bool success = GetBool(result, "success");
+            string message = GetString(result, "message");
 
             if (!success)
             {
@@ -187,28 +170,28 @@ namespace WeibullAnalysisDemo
                 return;
             }
 
-            // 获取各个字段
-            string moduleCode = GetStringField(result, "moduleCode");
-            string moduleName = GetStringField(result, "moduleName");
-            double beta = GetDoubleField(result, "beta");
-            double eta = GetDoubleField(result, "eta");
-            double mttf = GetDoubleField(result, "mttf");
-            double median = GetDoubleField(result, "median");
-            double b10 = GetDoubleField(result, "b10");
-            double b50 = GetDoubleField(result, "b50");
-            double b90 = GetDoubleField(result, "b90");
-            double r2 = GetDoubleField(result, "r2");
-            double lowerBeta = GetDoubleField(result, "lowerBeta");
-            double upperBeta = GetDoubleField(result, "upperBeta");
-            double lowerEta = GetDoubleField(result, "lowerEta");
-            double upperEta = GetDoubleField(result, "upperEta");
-            int totalN = (int)GetDoubleField(result, "totalN");
-            int completeN = (int)GetDoubleField(result, "completeN");
-            int rightCensN = (int)GetDoubleField(result, "rightCensN");
-            int intervalCensN = (int)GetDoubleField(result, "intervalCensN");
-            int leftCensN = (int)GetDoubleField(result, "leftCensN");
+            // 获取所有结果字段
+            string moduleCode = GetString(result, "moduleCode");
+            string moduleName = GetString(result, "moduleName");
+            double beta = GetDouble(result, "beta");
+            double eta = GetDouble(result, "eta");
+            double mttf = GetDouble(result, "mttf");
+            double median = GetDouble(result, "median");
+            double b10 = GetDouble(result, "b10");
+            double b50 = GetDouble(result, "b50");
+            double b90 = GetDouble(result, "b90");
+            double r2 = GetDouble(result, "r2");
+            double lowerBeta = GetDouble(result, "lowerBeta");
+            double upperBeta = GetDouble(result, "upperBeta");
+            double lowerEta = GetDouble(result, "lowerEta");
+            double upperEta = GetDouble(result, "upperEta");
+            int totalN = (int)GetDouble(result, "totalN");
+            int completeN = (int)GetDouble(result, "completeN");
+            int rightCensN = (int)GetDouble(result, "rightCensN");
+            int intervalCensN = (int)GetDouble(result, "intervalCensN");
+            int leftCensN = (int)GetDouble(result, "leftCensN");
 
-            // 打印结果
+            // 输出结果
             Console.WriteLine($"  模组: {moduleCode} ({moduleName})");
             Console.WriteLine($"  ────────────────────────────────────");
             Console.WriteLine($"  Weibull 参数:");
@@ -231,65 +214,139 @@ namespace WeibullAnalysisDemo
             Console.WriteLine($"    左删失:   {leftCensN}");
         }
 
-        #region 辅助方法 - 从 MWStructArray 获取字段值
+        #region 辅助方法 - 处理 MATLAB R2025b Native API 返回的数组类型
 
-        static double GetDoubleField(MWStructArray arr, string fieldName, int index = 1)
+        /// <summary>
+        /// 获取结构体数组元素数量
+        /// </summary>
+        static int GetElementCount(dynamic arr)
         {
-            try
-            {
-                MWArray field = arr[fieldName, index];
-                if (field is MWNumericArray numArray)
-                {
-                    return (double)numArray;
-                }
-                return double.NaN;
-            }
-            catch
-            {
-                return double.NaN;
-            }
+            try { return (int)arr.NumberOfElements; }
+            catch { return 1; }
         }
 
-        static string GetStringField(MWStructArray arr, string fieldName, int index = 1)
+        /// <summary>
+        /// 从结构体获取 double 值
+        /// </summary>
+        static double GetDouble(dynamic arr, string field, int index = 1)
         {
             try
             {
-                MWArray field = arr[fieldName, index];
-                if (field is MWCharArray charArray)
+                dynamic val = arr[field, index];
+                if (val == null) return double.NaN;
+
+                Type t = val.GetType();
+
+                // double[,] - 最常见
+                if (t == typeof(double[,]))
+                    return ((double[,])val)[0, 0];
+
+                // double[]
+                if (t == typeof(double[]))
                 {
-                    return charArray.ToString();
+                    var a = (double[])val;
+                    return a.Length > 0 ? a[0] : double.NaN;
                 }
-                if (field is MWCellArray cellArray)
-                {
-                    return cellArray[1].ToString();
-                }
-                return field?.ToString() ?? "";
+
+                // double
+                if (t == typeof(double))
+                    return (double)val;
+
+                // 其他数值类型
+                return Convert.ToDouble(val);
             }
-            catch
+            catch { return double.NaN; }
+        }
+
+        /// <summary>
+        /// 从结构体获取 string 值
+        /// </summary>
+        static string GetString(dynamic arr, string field, int index = 1)
+        {
+            try
             {
+                dynamic val = arr[field, index];
+                if (val == null) return "";
+
+                Type t = val.GetType();
+
+                // string[] - C# 传入的字符串
+                if (t == typeof(string[]))
+                {
+                    var a = (string[])val;
+                    return a.Length > 0 ? (a[0]?.Trim() ?? "") : "";
+                }
+
+                // string
+                if (t == typeof(string))
+                    return ((string)val).Trim();
+
+                // char[,] - MATLAB 原生字符串
+                if (t == typeof(char[,]))
+                {
+                    var c = (char[,])val;
+                    int cols = c.GetLength(1);
+                    var chars = new char[cols];
+                    for (int i = 0; i < cols; i++)
+                        chars[i] = c[0, i];
+                    return new string(chars).Trim();
+                }
+
+                // char[]
+                if (t == typeof(char[]))
+                    return new string((char[])val).Trim();
+
+                // 其他 - 过滤类型名
+                string s = val.ToString();
+                if (!s.StartsWith("System.") && !s.StartsWith("MathWorks."))
+                    return s.Trim();
+
                 return "";
             }
+            catch { return ""; }
         }
 
-        static bool GetBoolField(MWStructArray arr, string fieldName, int index = 1)
+        /// <summary>
+        /// 从结构体获取 bool 值
+        /// </summary>
+        static bool GetBool(dynamic arr, string field, int index = 1)
         {
             try
             {
-                MWArray field = arr[fieldName, index];
-                if (field is MWLogicalArray logArray)
+                dynamic val = arr[field, index];
+                if (val == null) return false;
+
+                Type t = val.GetType();
+
+                // bool[,] - MATLAB logical
+                if (t == typeof(bool[,]))
+                    return ((bool[,])val)[0, 0];
+
+                // bool[]
+                if (t == typeof(bool[]))
                 {
-                    return (bool)logArray;
+                    var a = (bool[])val;
+                    return a.Length > 0 && a[0];
                 }
-                if (field is MWNumericArray numArray)
+
+                // bool
+                if (t == typeof(bool))
+                    return (bool)val;
+
+                // double[,] - MATLAB 用 1/0 表示
+                if (t == typeof(double[,]))
+                    return ((double[,])val)[0, 0] != 0;
+
+                // double[]
+                if (t == typeof(double[]))
                 {
-                    return (double)numArray != 0;
+                    var a = (double[])val;
+                    return a.Length > 0 && a[0] != 0;
                 }
-                return false;
+
+                return Convert.ToBoolean(val);
             }
-            catch
-            {
-                return false;
-            }
+            catch { return false; }
         }
 
         #endregion

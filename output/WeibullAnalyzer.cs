@@ -1,10 +1,11 @@
 /*
 * MATLAB Compiler: 25.2 (R2025b)
-* 日期: Sun Dec  7 10:08:34 2025
+* 日期: Sun Dec  7 14:13:54 2025
 * 参量:
 * "-B""macro_default""-W""dotnet:WeibullAnalysis,WeibullAnalyzer,4.0""-T""link:lib""-d""./
-* output""WeibullAnalysisByModuleID.m""WeibullAnalysisByModuleCode.m""WeibullAnalysisFromD
-* ata.m""WeibullAnalysisAll.m""-a""WeibullAnalysisLib.m""-v"
+* output""-v""WeibullAnalysisByModuleID.m""WeibullAnalysisByModuleCode.m""WeibullAnalysisF
+* romData.m""WeibullAnalysisAll.m""-a""WeibullAnalysisLib.m""-a""C:/Tools/mysql-connector-
+* j-9.4.0/mysql-connector-j-9.4.0.jar"
 */
 using System;
 using System.Reflection;
