@@ -1,6 +1,6 @@
 /*
 * MATLAB Compiler: 25.2 (R2025b)
-* 日期: Sun Dec  7 14:13:54 2025
+* 日期: Sun Dec  7 14:59:42 2025
 * 参量:
 * "-B""macro_default""-W""dotnet:WeibullAnalysis,WeibullAnalyzer,4.0""-T""link:lib""-d""./
 * output""-v""WeibullAnalysisByModuleID.m""WeibullAnalysisByModuleCode.m""WeibullAnalysisF
@@ -24,17 +24,17 @@ namespace WeibullAnalysisNative
   /// The WeibullAnalyzer class provides a CLS compliant, Object (native) interface to
   /// the MATLAB functions contained in the files:
   /// <newpara></newpara>
-  /// C:\Users\86138\Desktop\深圳测试服务器\WeibullAnalysis-DLL\WeibullAnalysisByMo
-  /// duleID.m
+  /// C:\Users\86138\Desktop\深圳测试服务器\CSharp_Call_Matlab\Matlab_Sources\Weibu
+  /// llAnalysisByModuleID.m
   /// <newpara></newpara>
-  /// C:\Users\86138\Desktop\深圳测试服务器\WeibullAnalysis-DLL\WeibullAnalysisByMo
-  /// duleCode.m
+  /// C:\Users\86138\Desktop\深圳测试服务器\CSharp_Call_Matlab\Matlab_Sources\Weibu
+  /// llAnalysisByModuleCode.m
   /// <newpara></newpara>
-  /// C:\Users\86138\Desktop\深圳测试服务器\WeibullAnalysis-DLL\WeibullAnalysisFrom
-  /// Data.m
+  /// C:\Users\86138\Desktop\深圳测试服务器\CSharp_Call_Matlab\Matlab_Sources\Weibu
+  /// llAnalysisFromData.m
   /// <newpara></newpara>
-  /// C:\Users\86138\Desktop\深圳测试服务器\WeibullAnalysis-DLL\WeibullAnalysisAll.
-  /// m
+  /// C:\Users\86138\Desktop\深圳测试服务器\CSharp_Call_Matlab\Matlab_Sources\Weibu
+  /// llAnalysisAll.m
   /// </summary>
   /// <remarks>
   /// @Version 1.0

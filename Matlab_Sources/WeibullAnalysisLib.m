@@ -1,27 +1,28 @@
-classdef WeibullAnalysisLib
+classdef WeibullAnalysisLib < handle
     %% ================================================
     %  WeibullAnalysisLib - Weibull分析类库
-    %  版本: 1.2.0 (使用纯 JDBC API，不依赖 Database Toolbox)
+    %  版本: 1.3.4 (继承 handle 类修复属性持久化问题)
     %  更新日期: 2025-12-07
     %  
-    %  重要改动：使用 Java JDBC API 直接连接数据库
-    %  完全绕过 Database Toolbox，解决部署环境 fetch 函数不可用问题
+    %  JDBC 驱动: mysql-connector-j-9.4.0.jar
+    %  使用 URLClassLoader 动态加载，解决部署环境问题
     %  ================================================
     
     properties (Constant)
-        VERSION = '1.2.0'
+        VERSION = '1.3.4'
         DEFAULT_CONFIDENCE_LEVEL = 0.95
     end
     
     properties (Access = private)
-        javaConn        % Java JDBC 连接对象
-        connSuccess     % 连接状态
+        javaConn
+        connSuccess
         dbHost
         dbPort
         dbName
         dbUser
         dbPassword
         jdbcDriverPath
+        jdbcDriver
     end
     
     methods
@@ -35,6 +36,7 @@ classdef WeibullAnalysisLib
             obj.jdbcDriverPath = WeibullAnalysisLib.FindJdbcDriver();
             obj.javaConn = [];
             obj.connSuccess = false;
+            obj.jdbcDriver = [];
         end
         
         %% 设置数据库连接参数
@@ -47,33 +49,44 @@ classdef WeibullAnalysisLib
             if nargin >= 7 && ~isempty(jdbcPath), obj.jdbcDriverPath = jdbcPath; end
         end
         
-        %% 连接数据库 (使用纯 Java JDBC API)
+        %% 连接数据库 (使用 URLClassLoader)
         function [success, message] = Connect(obj)
             success = false;
             message = '';
             
-            % 加载 JDBC 驱动
-            if ~isempty(obj.jdbcDriverPath) && exist(obj.jdbcDriverPath, 'file')
-                try
-                    javaaddpath(obj.jdbcDriverPath);
-                catch
-                end
-            else
-                message = ['JDBC 驱动未找到: ' obj.jdbcDriverPath];
+            if isempty(obj.jdbcDriverPath)
+                obj.jdbcDriverPath = WeibullAnalysisLib.FindJdbcDriver();
+            end
+            
+            if isempty(obj.jdbcDriverPath) || ~exist(obj.jdbcDriverPath, 'file')
+                message = ['JDBC 驱动未找到。搜索路径: ' obj.jdbcDriverPath];
                 return;
             end
             
-            % 使用 Java JDBC API 连接
             try
-                % 加载驱动类
-                java.lang.Class.forName('com.mysql.cj.jdbc.Driver');
+                % 使用 URLClassLoader 加载 JDBC 驱动
+                jarFile = java.io.File(obj.jdbcDriverPath);
+                jarURL = jarFile.toURI().toURL();
+                
+                urlArray = javaArray('java.net.URL', 1);
+                urlArray(1) = jarURL;
+                classLoader = java.net.URLClassLoader(urlArray);
+                
+                % 加载驱动类并实例化 (使用兼容旧版 Java 的方式)
+                driverClass = classLoader.loadClass('com.mysql.cj.jdbc.Driver');
+                obj.jdbcDriver = driverClass.newInstance();  % 兼容 Java 8
                 
                 % 构建连接 URL
                 jdbcURL = sprintf('jdbc:mysql://%s:%d/%s?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8', ...
                     obj.dbHost, obj.dbPort, obj.dbName);
                 
-                % 获取连接
-                obj.javaConn = java.sql.DriverManager.getConnection(jdbcURL, obj.dbUser, obj.dbPassword);
+                % 创建连接属性
+                props = java.util.Properties();
+                props.setProperty('user', obj.dbUser);
+                props.setProperty('password', obj.dbPassword);
+                
+                % 使用 Driver.connect()
+                obj.javaConn = obj.jdbcDriver.connect(jdbcURL, props);
                 
                 if ~isempty(obj.javaConn) && ~obj.javaConn.isClosed()
                     obj.connSuccess = true;
@@ -82,6 +95,7 @@ classdef WeibullAnalysisLib
                 else
                     message = 'JDBC 连接返回空或已关闭';
                 end
+                
             catch ME
                 message = ['JDBC 连接失败: ' ME.message];
                 obj.connSuccess = false;
@@ -102,7 +116,7 @@ classdef WeibullAnalysisLib
             obj.connSuccess = false;
         end
         
-        %% 执行 SQL 查询 (使用纯 Java JDBC API)
+        %% 执行 SQL 查询
         function data = ExecuteQuery(obj, sqlQuery)
             data = [];
             
@@ -111,23 +125,16 @@ classdef WeibullAnalysisLib
             end
             
             try
-                % 创建 Statement
                 stmt = obj.javaConn.createStatement();
-                
-                % 执行查询
                 rs = stmt.executeQuery(sqlQuery);
-                
-                % 获取元数据
                 metaData = rs.getMetaData();
                 numCols = metaData.getColumnCount();
                 
-                % 获取列名
                 colNames = cell(1, numCols);
                 for i = 1:numCols
                     colNames{i} = char(metaData.getColumnLabel(i));
                 end
                 
-                % 读取数据
                 rows = {};
                 rowIdx = 0;
                 while rs.next()
@@ -138,7 +145,6 @@ classdef WeibullAnalysisLib
                         if isempty(val) || rs.wasNull()
                             rowData{i} = [];
                         elseif isjava(val)
-                            % 转换 Java 对象为 MATLAB 类型
                             className = class(val);
                             if contains(className, 'String')
                                 rowData{i} = char(val);
@@ -155,16 +161,13 @@ classdef WeibullAnalysisLib
                             rowData{i} = val;
                         end
                     end
-                    rows{rowIdx} = rowData; %#ok<AGROW>
+                    rows{rowIdx} = rowData;
                 end
                 
-                % 关闭资源
                 rs.close();
                 stmt.close();
                 
-                % 转换为表格
                 if rowIdx > 0
-                    % 构建表格数据
                     tableData = cell(rowIdx, numCols);
                     for r = 1:rowIdx
                         tableData(r, :) = rows{r};
@@ -181,7 +184,6 @@ classdef WeibullAnalysisLib
         function result = WeibullAnalysisByModuleID(obj, moduleID)
             result = obj.CreateEmptyResult();
             
-            % 确保连接
             if ~obj.connSuccess
                 [success, msg] = obj.Connect();
                 if ~success
@@ -191,12 +193,10 @@ classdef WeibullAnalysisLib
                 end
             end
             
-            % 转换 moduleID
             if ischar(moduleID) || isstring(moduleID)
                 moduleID = str2double(moduleID);
             end
             
-            % 构建 SQL
             sqlQuery = sprintf(['SELECT m.module_id, m.module_code, m.module_name, ' ...
                 'td.failure_time, ' ...
                 'COALESCE(td.last_inspection_time, 0) AS last_inspection_time, ' ...
@@ -260,7 +260,7 @@ classdef WeibullAnalysisLib
             end
         end
         
-        %% 直接使用数据进行分析 (不需要数据库)
+        %% 直接使用数据进行分析
         function result = WeibullAnalysisFromData(obj, failureTimes, censoringTypes, quantities, lastInspectionTimes, moduleCode, moduleName)
             result = obj.CreateEmptyResult();
             
@@ -273,31 +273,17 @@ classdef WeibullAnalysisLib
             failureTimes = failureTimes(:);
             n = length(failureTimes);
             
-            if nargin < 3 || isempty(censoringTypes)
-                censoringTypes = zeros(n, 1);
-            else
-                censoringTypes = censoringTypes(:);
-            end
+            if nargin < 3 || isempty(censoringTypes), censoringTypes = zeros(n, 1);
+            else, censoringTypes = censoringTypes(:); end
             
-            if nargin < 4 || isempty(quantities)
-                quantities = ones(n, 1);
-            else
-                quantities = quantities(:);
-            end
+            if nargin < 4 || isempty(quantities), quantities = ones(n, 1);
+            else, quantities = quantities(:); end
             
-            if nargin < 5 || isempty(lastInspectionTimes)
-                lastInspectionTimes = zeros(n, 1);
-            else
-                lastInspectionTimes = lastInspectionTimes(:);
-            end
+            if nargin < 5 || isempty(lastInspectionTimes), lastInspectionTimes = zeros(n, 1);
+            else, lastInspectionTimes = lastInspectionTimes(:); end
             
-            if nargin < 6 || isempty(moduleCode)
-                moduleCode = 'DirectInput';
-            end
-            
-            if nargin < 7 || isempty(moduleName)
-                moduleName = '直接输入数据';
-            end
+            if nargin < 6 || isempty(moduleCode), moduleCode = 'DirectInput'; end
+            if nargin < 7 || isempty(moduleName), moduleName = '直接输入数据'; end
             
             validIdx = failureTimes > 0 & isfinite(failureTimes);
             if sum(validIdx) < 2
@@ -380,9 +366,7 @@ classdef WeibullAnalysisLib
                 
                 for i = 1:nModules
                     moduleID = modules.module_id(i);
-                    if iscell(moduleID)
-                        moduleID = moduleID{1};
-                    end
+                    if iscell(moduleID), moduleID = moduleID{1}; end
                     results(i) = obj.WeibullAnalysisByModuleID(moduleID);
                 end
             catch ME
@@ -421,7 +405,6 @@ classdef WeibullAnalysisLib
         function result = AnalyzeModuleData(obj, rawData)
             result = obj.CreateEmptyResult();
             try
-                % 提取数据
                 moduleID = obj.SafeGetValue(rawData, 'module_id', 1);
                 moduleCode = obj.SafeGetString(rawData, 'module_code', 1);
                 moduleName = obj.SafeGetString(rawData, 'module_name', 1);
@@ -493,18 +476,14 @@ classdef WeibullAnalysisLib
             try
                 if istable(tbl) && ismember(colName, tbl.Properties.VariableNames)
                     col = tbl.(colName);
-                    if iscell(col)
-                        col = cellfun(@(x) double(x), col);
-                    end
+                    if iscell(col), col = cellfun(@(x) double(x), col); end
                 else
                     col = [];
                 end
             catch
                 col = [];
             end
-            if isempty(col)
-                col = 0;
-            end
+            if isempty(col), col = 0; end
             col = double(col(:));
         end
         
@@ -512,13 +491,9 @@ classdef WeibullAnalysisLib
             try
                 if istable(tbl) && ismember(colName, tbl.Properties.VariableNames)
                     val = tbl.(colName)(rowIdx);
-                    if iscell(val)
-                        str = char(val{1});
-                    elseif isstring(val)
-                        str = char(val);
-                    else
-                        str = char(val);
-                    end
+                    if iscell(val), str = char(val{1});
+                    elseif isstring(val), str = char(val);
+                    else, str = char(val); end
                 else
                     str = '';
                 end
@@ -531,9 +506,7 @@ classdef WeibullAnalysisLib
             try
                 if istable(tbl) && ismember(colName, tbl.Properties.VariableNames)
                     val = tbl.(colName)(rowIdx);
-                    if iscell(val)
-                        val = val{1};
-                    end
+                    if iscell(val), val = val{1}; end
                     val = double(val);
                 else
                     val = 0;
@@ -545,49 +518,61 @@ classdef WeibullAnalysisLib
     end
     
     methods (Static)
-        %% 查找 JDBC 驱动
+        %% 查找 JDBC 驱动 (优先使用 9.4.0 版本)
         function jdbcPath = FindJdbcDriver()
             jdbcPath = '';
             
-            fileNames = {
-                'mysql-connector-j-9.1.0.jar',
-                'mysql-connector-j-9.0.0.jar',
-                'mysql-connector-j-8.4.0.jar',
-                'mysql-connector-j-8.0.33.jar',
-                'mysql-connector-java.jar'
-            };
+            % 按优先级排序的文件名列表 (9.4.0 优先)
+            fileNames = {'mysql-connector-j-9.4.0.jar', 'mysql-connector-j-9.3.0.jar', ...
+                'mysql-connector-j-9.2.0.jar', 'mysql-connector-j-9.1.0.jar', ...
+                'mysql-connector-j-9.0.0.jar', 'mysql-connector-j-8.4.0.jar', ...
+                'mysql-connector-j-8.3.0.jar', 'mysql-connector-j-8.0.33.jar', ...
+                'mysql-connector-java.jar'};
             
-            % 1. 部署环境
+            % 预设路径列表
+            presetPaths = {'C:/Tools/mysql-connector-j-9.4.0', 'C:/Tools/mysql-connector-j-9.1.0', ...
+                'C:/Tools/mysql-connector-j-9.0.0', 'C:/Tools/mysql-connector-j-8.0.33', ...
+                'C:/jdbc', 'D:/jdbc', 'C:/Program Files/MySQL/Connector J 9.4', ...
+                'C:/Program Files/MySQL/Connector J 9.1', 'C:/Program Files/MySQL/Connector J 8.0'};
+            
+            % 构建搜索路径列表
+            searchPaths = cell(1, 20);
+            idx = 0;
+            
+            % 1. 部署环境 - ctfroot
             if isdeployed
-                ctfDir = ctfroot;
-                for i = 1:length(fileNames)
-                    testPath = fullfile(ctfDir, fileNames{i});
-                    if exist(testPath, 'file')
-                        jdbcPath = testPath;
-                        return;
-                    end
+                try
+                    ctfDir = ctfroot;
+                    idx = idx + 1; searchPaths{idx} = ctfDir;
+                    idx = idx + 1; searchPaths{idx} = fullfile(ctfDir, 'lib');
+                    idx = idx + 1; searchPaths{idx} = fullfile(ctfDir, 'jdbc');
+                catch
                 end
             end
             
             % 2. 当前目录
-            for i = 1:length(fileNames)
-                if exist(fileNames{i}, 'file')
-                    jdbcPath = fullfile(pwd, fileNames{i});
-                    return;
-                end
+            try
+                currentDir = pwd;
+                idx = idx + 1; searchPaths{idx} = currentDir;
+                idx = idx + 1; searchPaths{idx} = fullfile(currentDir, 'lib');
+                idx = idx + 1; searchPaths{idx} = fullfile(currentDir, 'jdbc');
+            catch
             end
             
-            % 3. 预设路径
-            presetPaths = {
-                'C:/Tools/mysql-connector-j-9.1.0',
-                'C:/Tools/mysql-connector-j-9.0.0',
-                'C:/Tools/mysql-connector-j-8.0.33',
-                'C:/jdbc'
-            };
+            % 3. 添加预设路径
+            for k = 1:length(presetPaths)
+                idx = idx + 1;
+                searchPaths{idx} = presetPaths{k};
+            end
             
-            for j = 1:length(presetPaths)
+            % 截断到实际长度
+            searchPaths = searchPaths(1:idx);
+            
+            % 搜索
+            for j = 1:length(searchPaths)
+                if isempty(searchPaths{j}), continue; end
                 for i = 1:length(fileNames)
-                    testPath = fullfile(presetPaths{j}, fileNames{i});
+                    testPath = fullfile(searchPaths{j}, fileNames{i});
                     if exist(testPath, 'file')
                         jdbcPath = testPath;
                         return;
@@ -598,7 +583,6 @@ classdef WeibullAnalysisLib
     end
     
     methods (Static, Access = private)
-        %% Weibull MLE 估计
         function [beta, eta, msg] = WeibullMLEAllTypes(times, lastInspTimes, censoringTypes, quantities)
             completeIdx = (censoringTypes == 0);
             rightCensIdx = (censoringTypes == 1);
@@ -664,15 +648,12 @@ classdef WeibullAnalysisLib
             end
         end
         
-        %% 负对数似然函数
         function nll = NegLogLikelihoodAllTypes(params, completeTimes, completeQty, ...
                 rightCensTimes, rightCensQty, intervalLower, intervalUpper, intervalQty, ...
                 leftCensTimes, leftCensQty)
             
             b = params(1); e = params(2);
-            if b <= 0.1 || b > 20 || e <= 0
-                nll = 1e10; return;
-            end
+            if b <= 0.1 || b > 20 || e <= 0, nll = 1e10; return; end
             
             ll = 0;
             
@@ -710,7 +691,6 @@ classdef WeibullAnalysisLib
             if ~isfinite(nll), nll = 1e10; end
         end
         
-        %% 计算 R²
         function r2 = CalcR2AllTypes(times, lastInspTimes, censoringTypes)
             completeIdx = (censoringTypes == 0);
             intervalIdx = (censoringTypes == 2);
@@ -737,7 +717,6 @@ classdef WeibullAnalysisLib
             if isnan(r2), r2 = 0; end
         end
         
-        %% 计算置信区间
         function [lowerBeta, upperBeta, lowerEta, upperEta] = CalcConfidenceIntervals(censoringTypes, quantities, beta, eta, confLevel)
             if nargin < 5, confLevel = 0.95; end
             
@@ -758,7 +737,6 @@ classdef WeibullAnalysisLib
             upperEta = eta + zValue * seEta;
         end
         
-        %% 计算寿命指标
         function [mttf, median_life, b10, b50, b90] = CalcLifeMetrics(beta, eta)
             mttf = eta * gamma(1 + 1/beta);
             median_life = eta * (log(2))^(1/beta);

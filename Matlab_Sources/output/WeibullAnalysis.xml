@@ -1,58 +1,58 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>WeibullAnalysisNative</name>
+        <name>WeibullAnalysis</name>
     </assembly>
     <members>
-        <member name="T:WeibullAnalysisNative.WeibullAnalyzer">
+        <member name="T:WeibullAnalysis.WeibullAnalyzer">
             <summary>
-            The WeibullAnalyzer class provides a CLS compliant, Object (native) interface to
-            the MATLAB functions contained in the files:
+            The WeibullAnalyzer class provides a CLS compliant, MWArray interface to the MATLAB
+            functions contained in the files:
             <newpara></newpara>
-            C:\Users\86138\Desktop\深圳测试服务器\WeibullAnalysis-DLL\WeibullAnalysisByMo
-            duleID.m
+            C:\Users\86138\Desktop\深圳测试服务器\CSharp_Call_Matlab\Matlab_Sources\Weibu
+            llAnalysisByModuleID.m
             <newpara></newpara>
-            C:\Users\86138\Desktop\深圳测试服务器\WeibullAnalysis-DLL\WeibullAnalysisByMo
-            duleCode.m
+            C:\Users\86138\Desktop\深圳测试服务器\CSharp_Call_Matlab\Matlab_Sources\Weibu
+            llAnalysisByModuleCode.m
             <newpara></newpara>
-            C:\Users\86138\Desktop\深圳测试服务器\WeibullAnalysis-DLL\WeibullAnalysisFrom
-            Data.m
+            C:\Users\86138\Desktop\深圳测试服务器\CSharp_Call_Matlab\Matlab_Sources\Weibu
+            llAnalysisFromData.m
             <newpara></newpara>
-            C:\Users\86138\Desktop\深圳测试服务器\WeibullAnalysis-DLL\WeibullAnalysisAll.
-            m
+            C:\Users\86138\Desktop\深圳测试服务器\CSharp_Call_Matlab\Matlab_Sources\Weibu
+            llAnalysisAll.m
             </summary>
             <remarks>
             @Version 1.0
             </remarks>
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.#cctor">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.#cctor">
             <summary internal= "true">
             The static constructor instantiates and initializes the MATLAB Runtime instance.
             </summary>
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.#ctor">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.#ctor">
             <summary>
             Constructs a new instance of the WeibullAnalyzer class.
             </summary>
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.Finalize">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.Finalize">
             <summary internal= "true">
             Class destructor called by the CLR garbage collector.
             </summary>
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.Dispose">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.Dispose">
             <summary>
             Frees the native resources associated with this object
             </summary>
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.Dispose(System.Boolean)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.Dispose(System.Boolean)">
             <summary internal= "true">
             Internal dispose function
             </summary>
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID">
              <summary>
-             Provides a single output, 0-input Objectinterface to the
+             Provides a single output, 0-input MWArrayinterface to the
              WeibullAnalysisByModuleID MATLAB function.
              </summary>
              <remarks>
@@ -87,53 +87,12 @@
              lowerEta, upperEta - eta置信区间 (double)
              totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
              </remarks>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 1-input Objectinterface to the
-             WeibullAnalysisByModuleID MATLAB function.
-             </summary>
-             <remarks>
-             M-Documentation:
-             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
-             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
-             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
-             dbPassword, jdbcPath)
-             使用指定的数据库连接参数
-             输入参数:
-             moduleID - 模组ID (数字或字符串)
-             dbHost - 数据库服务器地址 (可选，默认'localhost')
-             dbPort - 端口号 (可选，默认3306)
-             dbName - 数据库名称 (可选，默认'SysHardTestDB')
-             dbUser - 用户名 (可选，默认'root')
-             dbPassword - 密码 (可选)
-             jdbcPath - JDBC驱动路径 (可选)
-             输出参数:
-             result - 结构体，包含以下字段:
-             success - 是否成功 (logical)
-             message - 状态消息 (string)
-             moduleID - 模组ID (double)
-             moduleCode - 模组代码 (string)
-             moduleName - 模组名称 (string)
-             beta - 形状参数 (double)
-             eta - 尺度参数 (double)
-             mttf - 平均失效时间 (double)
-             median - 中位寿命 (double)
-             b10, b50, b90 - B寿命 (double)
-             r2 - R²拟合度 (double)
-             lowerBeta, upperBeta - beta置信区间 (double)
-             lowerEta, upperEta - eta置信区间 (double)
-             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
-             </remarks>
-             <param name="moduleID">Input argument #1</param>
-             <returns>An Object containing the first output argument.</returns>
-            
-        </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Object,System.Object)">
-             <summary>
-             Provides a single output, 2-input Objectinterface to the
+             Provides a single output, 1-input MWArrayinterface to the
              WeibullAnalysisByModuleID MATLAB function.
              </summary>
              <remarks>
@@ -169,13 +128,12 @@
              totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
              </remarks>
              <param name="moduleID">Input argument #1</param>
-             <param name="dbHost">Input argument #2</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 3-input Objectinterface to the
+             Provides a single output, 2-input MWArrayinterface to the
              WeibullAnalysisByModuleID MATLAB function.
              </summary>
              <remarks>
@@ -212,13 +170,12 @@
              </remarks>
              <param name="moduleID">Input argument #1</param>
              <param name="dbHost">Input argument #2</param>
-             <param name="dbPort">Input argument #3</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 4-input Objectinterface to the
+             Provides a single output, 3-input MWArrayinterface to the
              WeibullAnalysisByModuleID MATLAB function.
              </summary>
              <remarks>
@@ -256,13 +213,12 @@
              <param name="moduleID">Input argument #1</param>
              <param name="dbHost">Input argument #2</param>
              <param name="dbPort">Input argument #3</param>
-             <param name="dbName">Input argument #4</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 5-input Objectinterface to the
+             Provides a single output, 4-input MWArrayinterface to the
              WeibullAnalysisByModuleID MATLAB function.
              </summary>
              <remarks>
@@ -301,13 +257,12 @@
              <param name="dbHost">Input argument #2</param>
              <param name="dbPort">Input argument #3</param>
              <param name="dbName">Input argument #4</param>
-             <param name="dbUser">Input argument #5</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 6-input Objectinterface to the
+             Provides a single output, 5-input MWArrayinterface to the
              WeibullAnalysisByModuleID MATLAB function.
              </summary>
              <remarks>
@@ -347,13 +302,12 @@
              <param name="dbPort">Input argument #3</param>
              <param name="dbName">Input argument #4</param>
              <param name="dbUser">Input argument #5</param>
-             <param name="dbPassword">Input argument #6</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 7-input Objectinterface to the
+             Provides a single output, 6-input MWArrayinterface to the
              WeibullAnalysisByModuleID MATLAB function.
              </summary>
              <remarks>
@@ -394,14 +348,13 @@
              <param name="dbName">Input argument #4</param>
              <param name="dbUser">Input argument #5</param>
              <param name="dbPassword">Input argument #6</param>
-             <param name="jdbcPath">Input argument #7</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 0-input Object interface to the WeibullAnalysisByModuleID
-             MATLAB function.
+             Provides a single output, 7-input MWArrayinterface to the
+             WeibullAnalysisByModuleID MATLAB function.
              </summary>
              <remarks>
              M-Documentation:
@@ -435,322 +388,6 @@
              lowerEta, upperEta - eta置信区间 (double)
              totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
              </remarks>
-             <param name="numArgsOut">The number of output arguments to return.</param>
-             <returns>An Array of length "numArgsOut" containing the output
-             arguments.</returns>
-            
-        </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,System.Object)">
-             <summary>
-             Provides the standard 1-input Object interface to the WeibullAnalysisByModuleID
-             MATLAB function.
-             </summary>
-             <remarks>
-             M-Documentation:
-             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
-             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
-             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
-             dbPassword, jdbcPath)
-             使用指定的数据库连接参数
-             输入参数:
-             moduleID - 模组ID (数字或字符串)
-             dbHost - 数据库服务器地址 (可选，默认'localhost')
-             dbPort - 端口号 (可选，默认3306)
-             dbName - 数据库名称 (可选，默认'SysHardTestDB')
-             dbUser - 用户名 (可选，默认'root')
-             dbPassword - 密码 (可选)
-             jdbcPath - JDBC驱动路径 (可选)
-             输出参数:
-             result - 结构体，包含以下字段:
-             success - 是否成功 (logical)
-             message - 状态消息 (string)
-             moduleID - 模组ID (double)
-             moduleCode - 模组代码 (string)
-             moduleName - 模组名称 (string)
-             beta - 形状参数 (double)
-             eta - 尺度参数 (double)
-             mttf - 平均失效时间 (double)
-             median - 中位寿命 (double)
-             b10, b50, b90 - B寿命 (double)
-             r2 - R²拟合度 (double)
-             lowerBeta, upperBeta - beta置信区间 (double)
-             lowerEta, upperEta - eta置信区间 (double)
-             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
-             </remarks>
-             <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="moduleID">Input argument #1</param>
-             <returns>An Array of length "numArgsOut" containing the output
-             arguments.</returns>
-            
-        </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,System.Object,System.Object)">
-             <summary>
-             Provides the standard 2-input Object interface to the WeibullAnalysisByModuleID
-             MATLAB function.
-             </summary>
-             <remarks>
-             M-Documentation:
-             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
-             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
-             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
-             dbPassword, jdbcPath)
-             使用指定的数据库连接参数
-             输入参数:
-             moduleID - 模组ID (数字或字符串)
-             dbHost - 数据库服务器地址 (可选，默认'localhost')
-             dbPort - 端口号 (可选，默认3306)
-             dbName - 数据库名称 (可选，默认'SysHardTestDB')
-             dbUser - 用户名 (可选，默认'root')
-             dbPassword - 密码 (可选)
-             jdbcPath - JDBC驱动路径 (可选)
-             输出参数:
-             result - 结构体，包含以下字段:
-             success - 是否成功 (logical)
-             message - 状态消息 (string)
-             moduleID - 模组ID (double)
-             moduleCode - 模组代码 (string)
-             moduleName - 模组名称 (string)
-             beta - 形状参数 (double)
-             eta - 尺度参数 (double)
-             mttf - 平均失效时间 (double)
-             median - 中位寿命 (double)
-             b10, b50, b90 - B寿命 (double)
-             r2 - R²拟合度 (double)
-             lowerBeta, upperBeta - beta置信区间 (double)
-             lowerEta, upperEta - eta置信区间 (double)
-             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
-             </remarks>
-             <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="moduleID">Input argument #1</param>
-             <param name="dbHost">Input argument #2</param>
-             <returns>An Array of length "numArgsOut" containing the output
-             arguments.</returns>
-            
-        </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,System.Object,System.Object,System.Object)">
-             <summary>
-             Provides the standard 3-input Object interface to the WeibullAnalysisByModuleID
-             MATLAB function.
-             </summary>
-             <remarks>
-             M-Documentation:
-             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
-             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
-             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
-             dbPassword, jdbcPath)
-             使用指定的数据库连接参数
-             输入参数:
-             moduleID - 模组ID (数字或字符串)
-             dbHost - 数据库服务器地址 (可选，默认'localhost')
-             dbPort - 端口号 (可选，默认3306)
-             dbName - 数据库名称 (可选，默认'SysHardTestDB')
-             dbUser - 用户名 (可选，默认'root')
-             dbPassword - 密码 (可选)
-             jdbcPath - JDBC驱动路径 (可选)
-             输出参数:
-             result - 结构体，包含以下字段:
-             success - 是否成功 (logical)
-             message - 状态消息 (string)
-             moduleID - 模组ID (double)
-             moduleCode - 模组代码 (string)
-             moduleName - 模组名称 (string)
-             beta - 形状参数 (double)
-             eta - 尺度参数 (double)
-             mttf - 平均失效时间 (double)
-             median - 中位寿命 (double)
-             b10, b50, b90 - B寿命 (double)
-             r2 - R²拟合度 (double)
-             lowerBeta, upperBeta - beta置信区间 (double)
-             lowerEta, upperEta - eta置信区间 (double)
-             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
-             </remarks>
-             <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="moduleID">Input argument #1</param>
-             <param name="dbHost">Input argument #2</param>
-             <param name="dbPort">Input argument #3</param>
-             <returns>An Array of length "numArgsOut" containing the output
-             arguments.</returns>
-            
-        </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,System.Object,System.Object,System.Object,System.Object)">
-             <summary>
-             Provides the standard 4-input Object interface to the WeibullAnalysisByModuleID
-             MATLAB function.
-             </summary>
-             <remarks>
-             M-Documentation:
-             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
-             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
-             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
-             dbPassword, jdbcPath)
-             使用指定的数据库连接参数
-             输入参数:
-             moduleID - 模组ID (数字或字符串)
-             dbHost - 数据库服务器地址 (可选，默认'localhost')
-             dbPort - 端口号 (可选，默认3306)
-             dbName - 数据库名称 (可选，默认'SysHardTestDB')
-             dbUser - 用户名 (可选，默认'root')
-             dbPassword - 密码 (可选)
-             jdbcPath - JDBC驱动路径 (可选)
-             输出参数:
-             result - 结构体，包含以下字段:
-             success - 是否成功 (logical)
-             message - 状态消息 (string)
-             moduleID - 模组ID (double)
-             moduleCode - 模组代码 (string)
-             moduleName - 模组名称 (string)
-             beta - 形状参数 (double)
-             eta - 尺度参数 (double)
-             mttf - 平均失效时间 (double)
-             median - 中位寿命 (double)
-             b10, b50, b90 - B寿命 (double)
-             r2 - R²拟合度 (double)
-             lowerBeta, upperBeta - beta置信区间 (double)
-             lowerEta, upperEta - eta置信区间 (double)
-             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
-             </remarks>
-             <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="moduleID">Input argument #1</param>
-             <param name="dbHost">Input argument #2</param>
-             <param name="dbPort">Input argument #3</param>
-             <param name="dbName">Input argument #4</param>
-             <returns>An Array of length "numArgsOut" containing the output
-             arguments.</returns>
-            
-        </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object)">
-             <summary>
-             Provides the standard 5-input Object interface to the WeibullAnalysisByModuleID
-             MATLAB function.
-             </summary>
-             <remarks>
-             M-Documentation:
-             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
-             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
-             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
-             dbPassword, jdbcPath)
-             使用指定的数据库连接参数
-             输入参数:
-             moduleID - 模组ID (数字或字符串)
-             dbHost - 数据库服务器地址 (可选，默认'localhost')
-             dbPort - 端口号 (可选，默认3306)
-             dbName - 数据库名称 (可选，默认'SysHardTestDB')
-             dbUser - 用户名 (可选，默认'root')
-             dbPassword - 密码 (可选)
-             jdbcPath - JDBC驱动路径 (可选)
-             输出参数:
-             result - 结构体，包含以下字段:
-             success - 是否成功 (logical)
-             message - 状态消息 (string)
-             moduleID - 模组ID (double)
-             moduleCode - 模组代码 (string)
-             moduleName - 模组名称 (string)
-             beta - 形状参数 (double)
-             eta - 尺度参数 (double)
-             mttf - 平均失效时间 (double)
-             median - 中位寿命 (double)
-             b10, b50, b90 - B寿命 (double)
-             r2 - R²拟合度 (double)
-             lowerBeta, upperBeta - beta置信区间 (double)
-             lowerEta, upperEta - eta置信区间 (double)
-             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
-             </remarks>
-             <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="moduleID">Input argument #1</param>
-             <param name="dbHost">Input argument #2</param>
-             <param name="dbPort">Input argument #3</param>
-             <param name="dbName">Input argument #4</param>
-             <param name="dbUser">Input argument #5</param>
-             <returns>An Array of length "numArgsOut" containing the output
-             arguments.</returns>
-            
-        </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
-             <summary>
-             Provides the standard 6-input Object interface to the WeibullAnalysisByModuleID
-             MATLAB function.
-             </summary>
-             <remarks>
-             M-Documentation:
-             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
-             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
-             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
-             dbPassword, jdbcPath)
-             使用指定的数据库连接参数
-             输入参数:
-             moduleID - 模组ID (数字或字符串)
-             dbHost - 数据库服务器地址 (可选，默认'localhost')
-             dbPort - 端口号 (可选，默认3306)
-             dbName - 数据库名称 (可选，默认'SysHardTestDB')
-             dbUser - 用户名 (可选，默认'root')
-             dbPassword - 密码 (可选)
-             jdbcPath - JDBC驱动路径 (可选)
-             输出参数:
-             result - 结构体，包含以下字段:
-             success - 是否成功 (logical)
-             message - 状态消息 (string)
-             moduleID - 模组ID (double)
-             moduleCode - 模组代码 (string)
-             moduleName - 模组名称 (string)
-             beta - 形状参数 (double)
-             eta - 尺度参数 (double)
-             mttf - 平均失效时间 (double)
-             median - 中位寿命 (double)
-             b10, b50, b90 - B寿命 (double)
-             r2 - R²拟合度 (double)
-             lowerBeta, upperBeta - beta置信区间 (double)
-             lowerEta, upperEta - eta置信区间 (double)
-             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
-             </remarks>
-             <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="moduleID">Input argument #1</param>
-             <param name="dbHost">Input argument #2</param>
-             <param name="dbPort">Input argument #3</param>
-             <param name="dbName">Input argument #4</param>
-             <param name="dbUser">Input argument #5</param>
-             <param name="dbPassword">Input argument #6</param>
-             <returns>An Array of length "numArgsOut" containing the output
-             arguments.</returns>
-            
-        </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
-             <summary>
-             Provides the standard 7-input Object interface to the WeibullAnalysisByModuleID
-             MATLAB function.
-             </summary>
-             <remarks>
-             M-Documentation:
-             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
-             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
-             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
-             dbPassword, jdbcPath)
-             使用指定的数据库连接参数
-             输入参数:
-             moduleID - 模组ID (数字或字符串)
-             dbHost - 数据库服务器地址 (可选，默认'localhost')
-             dbPort - 端口号 (可选，默认3306)
-             dbName - 数据库名称 (可选，默认'SysHardTestDB')
-             dbUser - 用户名 (可选，默认'root')
-             dbPassword - 密码 (可选)
-             jdbcPath - JDBC驱动路径 (可选)
-             输出参数:
-             result - 结构体，包含以下字段:
-             success - 是否成功 (logical)
-             message - 状态消息 (string)
-             moduleID - 模组ID (double)
-             moduleCode - 模组代码 (string)
-             moduleName - 模组名称 (string)
-             beta - 形状参数 (double)
-             eta - 尺度参数 (double)
-             mttf - 平均失效时间 (double)
-             median - 中位寿命 (double)
-             b10, b50, b90 - B寿命 (double)
-             r2 - R²拟合度 (double)
-             lowerBeta, upperBeta - beta置信区间 (double)
-             lowerEta, upperEta - eta置信区间 (double)
-             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
-             </remarks>
-             <param name="numArgsOut">The number of output arguments to return.</param>
              <param name="moduleID">Input argument #1</param>
              <param name="dbHost">Input argument #2</param>
              <param name="dbPort">Input argument #3</param>
@@ -758,15 +395,378 @@
              <param name="dbUser">Input argument #5</param>
              <param name="dbPassword">Input argument #6</param>
              <param name="jdbcPath">Input argument #7</param>
+             <returns>An MWArray containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32)">
+             <summary>
+             Provides the standard 0-input MWArray interface to the WeibullAnalysisByModuleID
+             MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
+             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
+             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
+             dbPassword, jdbcPath)
+             使用指定的数据库连接参数
+             输入参数:
+             moduleID - 模组ID (数字或字符串)
+             dbHost - 数据库服务器地址 (可选，默认'localhost')
+             dbPort - 端口号 (可选，默认3306)
+             dbName - 数据库名称 (可选，默认'SysHardTestDB')
+             dbUser - 用户名 (可选，默认'root')
+             dbPassword - 密码 (可选)
+             jdbcPath - JDBC驱动路径 (可选)
+             输出参数:
+             result - 结构体，包含以下字段:
+             success - 是否成功 (logical)
+             message - 状态消息 (string)
+             moduleID - 模组ID (double)
+             moduleCode - 模组代码 (string)
+             moduleName - 模组名称 (string)
+             beta - 形状参数 (double)
+             eta - 尺度参数 (double)
+             mttf - 平均失效时间 (double)
+             median - 中位寿命 (double)
+             b10, b50, b90 - B寿命 (double)
+             r2 - R²拟合度 (double)
+             lowerBeta, upperBeta - beta置信区间 (double)
+             lowerEta, upperEta - eta置信区间 (double)
+             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
              <returns>An Array of length "numArgsOut" containing the output
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,System.Object[]@,System.Object[],System.Object[])">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray)">
+             <summary>
+             Provides the standard 1-input MWArray interface to the WeibullAnalysisByModuleID
+             MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
+             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
+             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
+             dbPassword, jdbcPath)
+             使用指定的数据库连接参数
+             输入参数:
+             moduleID - 模组ID (数字或字符串)
+             dbHost - 数据库服务器地址 (可选，默认'localhost')
+             dbPort - 端口号 (可选，默认3306)
+             dbName - 数据库名称 (可选，默认'SysHardTestDB')
+             dbUser - 用户名 (可选，默认'root')
+             dbPassword - 密码 (可选)
+             jdbcPath - JDBC驱动路径 (可选)
+             输出参数:
+             result - 结构体，包含以下字段:
+             success - 是否成功 (logical)
+             message - 状态消息 (string)
+             moduleID - 模组ID (double)
+             moduleCode - 模组代码 (string)
+             moduleName - 模组名称 (string)
+             beta - 形状参数 (double)
+             eta - 尺度参数 (double)
+             mttf - 平均失效时间 (double)
+             median - 中位寿命 (double)
+             b10, b50, b90 - B寿命 (double)
+             r2 - R²拟合度 (double)
+             lowerBeta, upperBeta - beta置信区间 (double)
+             lowerEta, upperEta - eta置信区间 (double)
+             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="moduleID">Input argument #1</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
+             <summary>
+             Provides the standard 2-input MWArray interface to the WeibullAnalysisByModuleID
+             MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
+             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
+             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
+             dbPassword, jdbcPath)
+             使用指定的数据库连接参数
+             输入参数:
+             moduleID - 模组ID (数字或字符串)
+             dbHost - 数据库服务器地址 (可选，默认'localhost')
+             dbPort - 端口号 (可选，默认3306)
+             dbName - 数据库名称 (可选，默认'SysHardTestDB')
+             dbUser - 用户名 (可选，默认'root')
+             dbPassword - 密码 (可选)
+             jdbcPath - JDBC驱动路径 (可选)
+             输出参数:
+             result - 结构体，包含以下字段:
+             success - 是否成功 (logical)
+             message - 状态消息 (string)
+             moduleID - 模组ID (double)
+             moduleCode - 模组代码 (string)
+             moduleName - 模组名称 (string)
+             beta - 形状参数 (double)
+             eta - 尺度参数 (double)
+             mttf - 平均失效时间 (double)
+             median - 中位寿命 (double)
+             b10, b50, b90 - B寿命 (double)
+             r2 - R²拟合度 (double)
+             lowerBeta, upperBeta - beta置信区间 (double)
+             lowerEta, upperEta - eta置信区间 (double)
+             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="moduleID">Input argument #1</param>
+             <param name="dbHost">Input argument #2</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
+             <summary>
+             Provides the standard 3-input MWArray interface to the WeibullAnalysisByModuleID
+             MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
+             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
+             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
+             dbPassword, jdbcPath)
+             使用指定的数据库连接参数
+             输入参数:
+             moduleID - 模组ID (数字或字符串)
+             dbHost - 数据库服务器地址 (可选，默认'localhost')
+             dbPort - 端口号 (可选，默认3306)
+             dbName - 数据库名称 (可选，默认'SysHardTestDB')
+             dbUser - 用户名 (可选，默认'root')
+             dbPassword - 密码 (可选)
+             jdbcPath - JDBC驱动路径 (可选)
+             输出参数:
+             result - 结构体，包含以下字段:
+             success - 是否成功 (logical)
+             message - 状态消息 (string)
+             moduleID - 模组ID (double)
+             moduleCode - 模组代码 (string)
+             moduleName - 模组名称 (string)
+             beta - 形状参数 (double)
+             eta - 尺度参数 (double)
+             mttf - 平均失效时间 (double)
+             median - 中位寿命 (double)
+             b10, b50, b90 - B寿命 (double)
+             r2 - R²拟合度 (double)
+             lowerBeta, upperBeta - beta置信区间 (double)
+             lowerEta, upperEta - eta置信区间 (double)
+             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="moduleID">Input argument #1</param>
+             <param name="dbHost">Input argument #2</param>
+             <param name="dbPort">Input argument #3</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
+             <summary>
+             Provides the standard 4-input MWArray interface to the WeibullAnalysisByModuleID
+             MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
+             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
+             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
+             dbPassword, jdbcPath)
+             使用指定的数据库连接参数
+             输入参数:
+             moduleID - 模组ID (数字或字符串)
+             dbHost - 数据库服务器地址 (可选，默认'localhost')
+             dbPort - 端口号 (可选，默认3306)
+             dbName - 数据库名称 (可选，默认'SysHardTestDB')
+             dbUser - 用户名 (可选，默认'root')
+             dbPassword - 密码 (可选)
+             jdbcPath - JDBC驱动路径 (可选)
+             输出参数:
+             result - 结构体，包含以下字段:
+             success - 是否成功 (logical)
+             message - 状态消息 (string)
+             moduleID - 模组ID (double)
+             moduleCode - 模组代码 (string)
+             moduleName - 模组名称 (string)
+             beta - 形状参数 (double)
+             eta - 尺度参数 (double)
+             mttf - 平均失效时间 (double)
+             median - 中位寿命 (double)
+             b10, b50, b90 - B寿命 (double)
+             r2 - R²拟合度 (double)
+             lowerBeta, upperBeta - beta置信区间 (double)
+             lowerEta, upperEta - eta置信区间 (double)
+             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="moduleID">Input argument #1</param>
+             <param name="dbHost">Input argument #2</param>
+             <param name="dbPort">Input argument #3</param>
+             <param name="dbName">Input argument #4</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
+             <summary>
+             Provides the standard 5-input MWArray interface to the WeibullAnalysisByModuleID
+             MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
+             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
+             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
+             dbPassword, jdbcPath)
+             使用指定的数据库连接参数
+             输入参数:
+             moduleID - 模组ID (数字或字符串)
+             dbHost - 数据库服务器地址 (可选，默认'localhost')
+             dbPort - 端口号 (可选，默认3306)
+             dbName - 数据库名称 (可选，默认'SysHardTestDB')
+             dbUser - 用户名 (可选，默认'root')
+             dbPassword - 密码 (可选)
+             jdbcPath - JDBC驱动路径 (可选)
+             输出参数:
+             result - 结构体，包含以下字段:
+             success - 是否成功 (logical)
+             message - 状态消息 (string)
+             moduleID - 模组ID (double)
+             moduleCode - 模组代码 (string)
+             moduleName - 模组名称 (string)
+             beta - 形状参数 (double)
+             eta - 尺度参数 (double)
+             mttf - 平均失效时间 (double)
+             median - 中位寿命 (double)
+             b10, b50, b90 - B寿命 (double)
+             r2 - R²拟合度 (double)
+             lowerBeta, upperBeta - beta置信区间 (double)
+             lowerEta, upperEta - eta置信区间 (double)
+             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="moduleID">Input argument #1</param>
+             <param name="dbHost">Input argument #2</param>
+             <param name="dbPort">Input argument #3</param>
+             <param name="dbName">Input argument #4</param>
+             <param name="dbUser">Input argument #5</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
+             <summary>
+             Provides the standard 6-input MWArray interface to the WeibullAnalysisByModuleID
+             MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
+             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
+             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
+             dbPassword, jdbcPath)
+             使用指定的数据库连接参数
+             输入参数:
+             moduleID - 模组ID (数字或字符串)
+             dbHost - 数据库服务器地址 (可选，默认'localhost')
+             dbPort - 端口号 (可选，默认3306)
+             dbName - 数据库名称 (可选，默认'SysHardTestDB')
+             dbUser - 用户名 (可选，默认'root')
+             dbPassword - 密码 (可选)
+             jdbcPath - JDBC驱动路径 (可选)
+             输出参数:
+             result - 结构体，包含以下字段:
+             success - 是否成功 (logical)
+             message - 状态消息 (string)
+             moduleID - 模组ID (double)
+             moduleCode - 模组代码 (string)
+             moduleName - 模组名称 (string)
+             beta - 形状参数 (double)
+             eta - 尺度参数 (double)
+             mttf - 平均失效时间 (double)
+             median - 中位寿命 (double)
+             b10, b50, b90 - B寿命 (double)
+             r2 - R²拟合度 (double)
+             lowerBeta, upperBeta - beta置信区间 (double)
+             lowerEta, upperEta - eta置信区间 (double)
+             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="moduleID">Input argument #1</param>
+             <param name="dbHost">Input argument #2</param>
+             <param name="dbPort">Input argument #3</param>
+             <param name="dbName">Input argument #4</param>
+             <param name="dbUser">Input argument #5</param>
+             <param name="dbPassword">Input argument #6</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
+             <summary>
+             Provides the standard 7-input MWArray interface to the WeibullAnalysisByModuleID
+             MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             WEIBULLANALYSISBYMODULEID 按模组ID进行Weibull分析
+             result = WeibullAnalysisByModuleID(moduleID) 对指定模组ID进行分析
+             result = WeibullAnalysisByModuleID(moduleID, dbHost, dbPort, dbName, dbUser,
+             dbPassword, jdbcPath)
+             使用指定的数据库连接参数
+             输入参数:
+             moduleID - 模组ID (数字或字符串)
+             dbHost - 数据库服务器地址 (可选，默认'localhost')
+             dbPort - 端口号 (可选，默认3306)
+             dbName - 数据库名称 (可选，默认'SysHardTestDB')
+             dbUser - 用户名 (可选，默认'root')
+             dbPassword - 密码 (可选)
+             jdbcPath - JDBC驱动路径 (可选)
+             输出参数:
+             result - 结构体，包含以下字段:
+             success - 是否成功 (logical)
+             message - 状态消息 (string)
+             moduleID - 模组ID (double)
+             moduleCode - 模组代码 (string)
+             moduleName - 模组名称 (string)
+             beta - 形状参数 (double)
+             eta - 尺度参数 (double)
+             mttf - 平均失效时间 (double)
+             median - 中位寿命 (double)
+             b10, b50, b90 - B寿命 (double)
+             r2 - R²拟合度 (double)
+             lowerBeta, upperBeta - beta置信区间 (double)
+             lowerEta, upperEta - eta置信区间 (double)
+             totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="moduleID">Input argument #1</param>
+             <param name="dbHost">Input argument #2</param>
+             <param name="dbPort">Input argument #3</param>
+             <param name="dbName">Input argument #4</param>
+             <param name="dbUser">Input argument #5</param>
+             <param name="dbPassword">Input argument #6</param>
+             <param name="jdbcPath">Input argument #7</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleID(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray[]@,MathWorks.MATLAB.NET.Arrays.MWArray[])">
              <summary>
              Provides an interface for the WeibullAnalysisByModuleID function in which the
              input and output
-             arguments are specified as an array of Objects.
+             arguments are specified as an array of MWArrays.
              </summary>
              <remarks>
              This method will allocate and return by reference the output argument
@@ -803,15 +803,13 @@
              totalN, completeN, rightCensN, intervalCensN, leftCensN - 数据统计 (double)
              </remarks>
              <param name="numArgsOut">The number of output arguments to return</param>
-             <param name= "argsOut">Array of Object output arguments</param>
-             <param name= "argsIn">Array of Object input arguments</param>
-             <param name= "varArgsIn">Array of Object representing variable input
-             arguments</param>
+             <param name= "argsOut">Array of MWArray output arguments</param>
+             <param name= "argsIn">Array of MWArray input arguments</param>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode">
              <summary>
-             Provides a single output, 0-input Objectinterface to the
+             Provides a single output, 0-input MWArrayinterface to the
              WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
@@ -833,12 +831,12 @@
              输出参数:
              result - 结构体，包含分析结果
              </remarks>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 1-input Objectinterface to the
+             Provides a single output, 1-input MWArrayinterface to the
              WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
@@ -861,12 +859,12 @@
              result - 结构体，包含分析结果
              </remarks>
              <param name="moduleCode">Input argument #1</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 2-input Objectinterface to the
+             Provides a single output, 2-input MWArrayinterface to the
              WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
@@ -890,12 +888,12 @@
              </remarks>
              <param name="moduleCode">Input argument #1</param>
              <param name="dbHost">Input argument #2</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 3-input Objectinterface to the
+             Provides a single output, 3-input MWArrayinterface to the
              WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
@@ -920,12 +918,12 @@
              <param name="moduleCode">Input argument #1</param>
              <param name="dbHost">Input argument #2</param>
              <param name="dbPort">Input argument #3</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 4-input Objectinterface to the
+             Provides a single output, 4-input MWArrayinterface to the
              WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
@@ -951,12 +949,12 @@
              <param name="dbHost">Input argument #2</param>
              <param name="dbPort">Input argument #3</param>
              <param name="dbName">Input argument #4</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 5-input Objectinterface to the
+             Provides a single output, 5-input MWArrayinterface to the
              WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
@@ -983,12 +981,12 @@
              <param name="dbPort">Input argument #3</param>
              <param name="dbName">Input argument #4</param>
              <param name="dbUser">Input argument #5</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 6-input Objectinterface to the
+             Provides a single output, 6-input MWArrayinterface to the
              WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
@@ -1016,12 +1014,12 @@
              <param name="dbName">Input argument #4</param>
              <param name="dbUser">Input argument #5</param>
              <param name="dbPassword">Input argument #6</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 7-input Objectinterface to the
+             Provides a single output, 7-input MWArrayinterface to the
              WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
@@ -1050,13 +1048,13 @@
              <param name="dbUser">Input argument #5</param>
              <param name="dbPassword">Input argument #6</param>
              <param name="jdbcPath">Input argument #7</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32)">
              <summary>
-             Provides the standard 0-input Object interface to the WeibullAnalysisByModuleCode
-             MATLAB function.
+             Provides the standard 0-input MWArray interface to the
+             WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
              M-Documentation:
@@ -1082,10 +1080,10 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 1-input Object interface to the WeibullAnalysisByModuleCode
-             MATLAB function.
+             Provides the standard 1-input MWArray interface to the
+             WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
              M-Documentation:
@@ -1112,10 +1110,10 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 2-input Object interface to the WeibullAnalysisByModuleCode
-             MATLAB function.
+             Provides the standard 2-input MWArray interface to the
+             WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
              M-Documentation:
@@ -1143,10 +1141,10 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 3-input Object interface to the WeibullAnalysisByModuleCode
-             MATLAB function.
+             Provides the standard 3-input MWArray interface to the
+             WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
              M-Documentation:
@@ -1175,10 +1173,10 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 4-input Object interface to the WeibullAnalysisByModuleCode
-             MATLAB function.
+             Provides the standard 4-input MWArray interface to the
+             WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
              M-Documentation:
@@ -1208,10 +1206,10 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 5-input Object interface to the WeibullAnalysisByModuleCode
-             MATLAB function.
+             Provides the standard 5-input MWArray interface to the
+             WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
              M-Documentation:
@@ -1242,10 +1240,10 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 6-input Object interface to the WeibullAnalysisByModuleCode
-             MATLAB function.
+             Provides the standard 6-input MWArray interface to the
+             WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
              M-Documentation:
@@ -1277,10 +1275,10 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 7-input Object interface to the WeibullAnalysisByModuleCode
-             MATLAB function.
+             Provides the standard 7-input MWArray interface to the
+             WeibullAnalysisByModuleCode MATLAB function.
              </summary>
              <remarks>
              M-Documentation:
@@ -1313,11 +1311,11 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,System.Object[]@,System.Object[],System.Object[])">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisByModuleCode(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray[]@,MathWorks.MATLAB.NET.Arrays.MWArray[])">
              <summary>
              Provides an interface for the WeibullAnalysisByModuleCode function in which the
              input and output
-             arguments are specified as an array of Objects.
+             arguments are specified as an array of MWArrays.
              </summary>
              <remarks>
              This method will allocate and return by reference the output argument
@@ -1341,15 +1339,13 @@
              result - 结构体，包含分析结果
              </remarks>
              <param name="numArgsOut">The number of output arguments to return</param>
-             <param name= "argsOut">Array of Object output arguments</param>
-             <param name= "argsIn">Array of Object input arguments</param>
-             <param name= "varArgsIn">Array of Object representing variable input
-             arguments</param>
+             <param name= "argsOut">Array of MWArray output arguments</param>
+             <param name= "argsIn">Array of MWArray input arguments</param>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData">
              <summary>
-             Provides a single output, 0-input Objectinterface to the WeibullAnalysisFromData
+             Provides a single output, 0-input MWArrayinterface to the WeibullAnalysisFromData
              MATLAB function.
              </summary>
              <remarks>
@@ -1377,12 +1373,12 @@
              lastInsp = [0, 0, 0, 0, 350];      区间删失的下界
              result = WeibullAnalysisFromData(times, censorTypes, quantities, lastInsp);
              </remarks>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData(System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData(MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 1-input Objectinterface to the WeibullAnalysisFromData
+             Provides a single output, 1-input MWArrayinterface to the WeibullAnalysisFromData
              MATLAB function.
              </summary>
              <remarks>
@@ -1411,12 +1407,12 @@
              result = WeibullAnalysisFromData(times, censorTypes, quantities, lastInsp);
              </remarks>
              <param name="failureTimes">Input argument #1</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData(System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 2-input Objectinterface to the WeibullAnalysisFromData
+             Provides a single output, 2-input MWArrayinterface to the WeibullAnalysisFromData
              MATLAB function.
              </summary>
              <remarks>
@@ -1446,12 +1442,12 @@
              </remarks>
              <param name="failureTimes">Input argument #1</param>
              <param name="censoringTypes">Input argument #2</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData(System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 3-input Objectinterface to the WeibullAnalysisFromData
+             Provides a single output, 3-input MWArrayinterface to the WeibullAnalysisFromData
              MATLAB function.
              </summary>
              <remarks>
@@ -1482,12 +1478,12 @@
              <param name="failureTimes">Input argument #1</param>
              <param name="censoringTypes">Input argument #2</param>
              <param name="quantities">Input argument #3</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 4-input Objectinterface to the WeibullAnalysisFromData
+             Provides a single output, 4-input MWArrayinterface to the WeibullAnalysisFromData
              MATLAB function.
              </summary>
              <remarks>
@@ -1519,12 +1515,12 @@
              <param name="censoringTypes">Input argument #2</param>
              <param name="quantities">Input argument #3</param>
              <param name="lastInspectionTimes">Input argument #4</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 5-input Objectinterface to the WeibullAnalysisFromData
+             Provides a single output, 5-input MWArrayinterface to the WeibullAnalysisFromData
              MATLAB function.
              </summary>
              <remarks>
@@ -1557,12 +1553,12 @@
              <param name="quantities">Input argument #3</param>
              <param name="lastInspectionTimes">Input argument #4</param>
              <param name="moduleCode">Input argument #5</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 6-input Objectinterface to the WeibullAnalysisFromData
+             Provides a single output, 6-input MWArrayinterface to the WeibullAnalysisFromData
              MATLAB function.
              </summary>
              <remarks>
@@ -1596,12 +1592,12 @@
              <param name="lastInspectionTimes">Input argument #4</param>
              <param name="moduleCode">Input argument #5</param>
              <param name="moduleName">Input argument #6</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32)">
              <summary>
-             Provides the standard 0-input Object interface to the WeibullAnalysisFromData
+             Provides the standard 0-input MWArray interface to the WeibullAnalysisFromData
              MATLAB function.
              </summary>
              <remarks>
@@ -1634,9 +1630,9 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 1-input Object interface to the WeibullAnalysisFromData
+             Provides the standard 1-input MWArray interface to the WeibullAnalysisFromData
              MATLAB function.
              </summary>
              <remarks>
@@ -1670,9 +1666,9 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 2-input Object interface to the WeibullAnalysisFromData
+             Provides the standard 2-input MWArray interface to the WeibullAnalysisFromData
              MATLAB function.
              </summary>
              <remarks>
@@ -1707,9 +1703,9 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 3-input Object interface to the WeibullAnalysisFromData
+             Provides the standard 3-input MWArray interface to the WeibullAnalysisFromData
              MATLAB function.
              </summary>
              <remarks>
@@ -1745,9 +1741,9 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 4-input Object interface to the WeibullAnalysisFromData
+             Provides the standard 4-input MWArray interface to the WeibullAnalysisFromData
              MATLAB function.
              </summary>
              <remarks>
@@ -1784,9 +1780,9 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 5-input Object interface to the WeibullAnalysisFromData
+             Provides the standard 5-input MWArray interface to the WeibullAnalysisFromData
              MATLAB function.
              </summary>
              <remarks>
@@ -1824,9 +1820,9 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 6-input Object interface to the WeibullAnalysisFromData
+             Provides the standard 6-input MWArray interface to the WeibullAnalysisFromData
              MATLAB function.
              </summary>
              <remarks>
@@ -1865,11 +1861,11 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32,System.Object[]@,System.Object[],System.Object[])">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisFromData(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray[]@,MathWorks.MATLAB.NET.Arrays.MWArray[])">
              <summary>
              Provides an interface for the WeibullAnalysisFromData function in which the input
              and output
-             arguments are specified as an array of Objects.
+             arguments are specified as an array of MWArrays.
              </summary>
              <remarks>
              This method will allocate and return by reference the output argument
@@ -1899,15 +1895,13 @@
              result = WeibullAnalysisFromData(times, censorTypes, quantities, lastInsp);
              </remarks>
              <param name="numArgsOut">The number of output arguments to return</param>
-             <param name= "argsOut">Array of Object output arguments</param>
-             <param name= "argsIn">Array of Object input arguments</param>
-             <param name= "varArgsIn">Array of Object representing variable input
-             arguments</param>
+             <param name= "argsOut">Array of MWArray output arguments</param>
+             <param name= "argsIn">Array of MWArray input arguments</param>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll">
              <summary>
-             Provides a single output, 0-input Objectinterface to the WeibullAnalysisAll
+             Provides a single output, 0-input MWArrayinterface to the WeibullAnalysisAll
              MATLAB function.
              </summary>
              <remarks>
@@ -1927,12 +1921,12 @@
              输出参数:
              results - 结构体数组，每个元素包含一个模组的分析结果
              </remarks>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll(System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll(MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 1-input Objectinterface to the WeibullAnalysisAll
+             Provides a single output, 1-input MWArrayinterface to the WeibullAnalysisAll
              MATLAB function.
              </summary>
              <remarks>
@@ -1953,12 +1947,12 @@
              results - 结构体数组，每个元素包含一个模组的分析结果
              </remarks>
              <param name="dbHost">Input argument #1</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll(System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 2-input Objectinterface to the WeibullAnalysisAll
+             Provides a single output, 2-input MWArrayinterface to the WeibullAnalysisAll
              MATLAB function.
              </summary>
              <remarks>
@@ -1980,12 +1974,12 @@
              </remarks>
              <param name="dbHost">Input argument #1</param>
              <param name="dbPort">Input argument #2</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll(System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 3-input Objectinterface to the WeibullAnalysisAll
+             Provides a single output, 3-input MWArrayinterface to the WeibullAnalysisAll
              MATLAB function.
              </summary>
              <remarks>
@@ -2008,12 +2002,12 @@
              <param name="dbHost">Input argument #1</param>
              <param name="dbPort">Input argument #2</param>
              <param name="dbName">Input argument #3</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 4-input Objectinterface to the WeibullAnalysisAll
+             Provides a single output, 4-input MWArrayinterface to the WeibullAnalysisAll
              MATLAB function.
              </summary>
              <remarks>
@@ -2037,12 +2031,12 @@
              <param name="dbPort">Input argument #2</param>
              <param name="dbName">Input argument #3</param>
              <param name="dbUser">Input argument #4</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 5-input Objectinterface to the WeibullAnalysisAll
+             Provides a single output, 5-input MWArrayinterface to the WeibullAnalysisAll
              MATLAB function.
              </summary>
              <remarks>
@@ -2067,12 +2061,12 @@
              <param name="dbName">Input argument #3</param>
              <param name="dbUser">Input argument #4</param>
              <param name="dbPassword">Input argument #5</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll(MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides a single output, 6-input Objectinterface to the WeibullAnalysisAll
+             Provides a single output, 6-input MWArrayinterface to the WeibullAnalysisAll
              MATLAB function.
              </summary>
              <remarks>
@@ -2098,12 +2092,12 @@
              <param name="dbUser">Input argument #4</param>
              <param name="dbPassword">Input argument #5</param>
              <param name="jdbcPath">Input argument #6</param>
-             <returns>An Object containing the first output argument.</returns>
+             <returns>An MWArray containing the first output argument.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll(System.Int32)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll(System.Int32)">
              <summary>
-             Provides the standard 0-input Object interface to the WeibullAnalysisAll MATLAB
+             Provides the standard 0-input MWArray interface to the WeibullAnalysisAll MATLAB
              function.
              </summary>
              <remarks>
@@ -2128,9 +2122,9 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll(System.Int32,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 1-input Object interface to the WeibullAnalysisAll MATLAB
+             Provides the standard 1-input MWArray interface to the WeibullAnalysisAll MATLAB
              function.
              </summary>
              <remarks>
@@ -2156,9 +2150,9 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll(System.Int32,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 2-input Object interface to the WeibullAnalysisAll MATLAB
+             Provides the standard 2-input MWArray interface to the WeibullAnalysisAll MATLAB
              function.
              </summary>
              <remarks>
@@ -2185,9 +2179,9 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll(System.Int32,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 3-input Object interface to the WeibullAnalysisAll MATLAB
+             Provides the standard 3-input MWArray interface to the WeibullAnalysisAll MATLAB
              function.
              </summary>
              <remarks>
@@ -2215,9 +2209,9 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll(System.Int32,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 4-input Object interface to the WeibullAnalysisAll MATLAB
+             Provides the standard 4-input MWArray interface to the WeibullAnalysisAll MATLAB
              function.
              </summary>
              <remarks>
@@ -2246,9 +2240,9 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 5-input Object interface to the WeibullAnalysisAll MATLAB
+             Provides the standard 5-input MWArray interface to the WeibullAnalysisAll MATLAB
              function.
              </summary>
              <remarks>
@@ -2278,9 +2272,9 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray,MathWorks.MATLAB.NET.Arrays.MWArray)">
              <summary>
-             Provides the standard 6-input Object interface to the WeibullAnalysisAll MATLAB
+             Provides the standard 6-input MWArray interface to the WeibullAnalysisAll MATLAB
              function.
              </summary>
              <remarks>
@@ -2311,11 +2305,11 @@
              arguments.</returns>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WeibullAnalysisAll(System.Int32,System.Object[]@,System.Object[],System.Object[])">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WeibullAnalysisAll(System.Int32,MathWorks.MATLAB.NET.Arrays.MWArray[]@,MathWorks.MATLAB.NET.Arrays.MWArray[])">
              <summary>
              Provides an interface for the WeibullAnalysisAll function in which the input and
              output
-             arguments are specified as an array of Objects.
+             arguments are specified as an array of MWArrays.
              </summary>
              <remarks>
              This method will allocate and return by reference the output argument
@@ -2337,13 +2331,11 @@
              results - 结构体数组，每个元素包含一个模组的分析结果
              </remarks>
              <param name="numArgsOut">The number of output arguments to return</param>
-             <param name= "argsOut">Array of Object output arguments</param>
-             <param name= "argsIn">Array of Object input arguments</param>
-             <param name= "varArgsIn">Array of Object representing variable input
-             arguments</param>
+             <param name= "argsOut">Array of MWArray output arguments</param>
+             <param name= "argsIn">Array of MWArray input arguments</param>
             
         </member>
-        <member name="M:WeibullAnalysisNative.WeibullAnalyzer.WaitForFiguresToDie">
+        <member name="M:WeibullAnalysis.WeibullAnalyzer.WaitForFiguresToDie">
              <summary>
              This method will cause a MATLAB figure window to behave as a modal dialog box.
              The method will not return until all the figure windows associated with this
